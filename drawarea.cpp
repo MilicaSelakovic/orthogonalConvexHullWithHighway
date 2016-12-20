@@ -88,6 +88,9 @@ void DrawArea::paintEvent(QPaintEvent *)
     painter.setPen(pen);
     painter.drawLine(QLineF(0, 0, width(), 0));
 
+//    QPointF niz[3] = {QPointF(100, 200), QPointF(200, 300), QPointF(100, 300)};
+//    painter.drawPolygon(niz, 3);
+
     if(hull != nullptr){
 
         bool isEnd = hull->HullL1(step);

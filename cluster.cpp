@@ -110,11 +110,12 @@ void Cluster::paint(QPainter *painter, QColor hullColor, qreal upperBound) const
 
 
 
+    //QBrush brush1(hullColor);
 
 
-
-    QBrush brush1(hullColor);
-    QPen pen1(brush1, 3);
+    QBrush brush1(hullColor, Qt::SolidPattern);
+    QPen pen1(Qt::darkBlue, 1);
+    painter->setBrush(brush1);
     painter->setPen(pen1);
 
     QPointF polygon[_points.size()*2];
