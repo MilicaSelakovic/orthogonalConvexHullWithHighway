@@ -16,6 +16,10 @@ public:
     ~MainWindow();
 
 public slots:
+    /*
+     * slot koji je povezan sa signalom pritiska dugmeta generateHull
+     * delegira informaciju drawarea da generise skup tacaka i pocne generisanje omotaca
+     */
     void generateHull();
     void moveSlider(int value);
 

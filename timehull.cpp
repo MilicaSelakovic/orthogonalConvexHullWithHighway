@@ -8,10 +8,21 @@ TImeHull::TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y)
     : _v(speed), xBound(x), yBound(y)
 {
     generatePoints(numberOfPoints);
-    iter = _points.begin();
 
     hullColor = QColor(200, 200, 255);
 
+
+}
+
+TImeHull::~TImeHull()
+{
+    _clusters.clear();
+}
+
+
+
+bool TImeHull::HullL1(unsigned n)
+{
     colors = std::queue<QColor>({
                                     Qt::blue,
                                     Qt::red,
@@ -25,17 +36,6 @@ TImeHull::TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y)
                                     Qt::magenta,
                                     Qt::darkGray
                                 });
-}
-
-TImeHull::~TImeHull()
-{
-    _clusters.clear();
-}
-
-
-
-bool TImeHull::HullL1(unsigned n)
-{
     if(n > _points.size())
         return true;
 
@@ -50,6 +50,11 @@ bool TImeHull::HullL1(unsigned n)
 void TImeHull::NextStep(QPointF &point){
     bool makeNew = true;
     Segment* current = new Segment(point, _v);
+
+    /*  prodjemo kroz sve klastere i proverimo da li se tacka nalazi u njihovim granicama
+        ako da modifikujemo ga, ako ne dodajemo na kraj (odn vrh posto vektor prolazimo od kraja)
+        novi klaster
+    */
     for(auto cIter = _clusters.rbegin(); cIter != _clusters.rend(); cIter ++){
         bool changed = (*cIter)->checkCluster(point, _v);
         if(changed){
@@ -70,10 +75,12 @@ void TImeHull::NextStep(QPointF &point){
 void TImeHull::paint(QPainter *painter, qreal upperBound) const
 {
 
+    /*iscrtamo klastere */
     for(Cluster *c : _clusters){
         c->paint(painter, hullColor, upperBound);
     }
 
+    /*iscrtamo pocetni skup tacaka */
     QBrush brush(Qt::black);
     QPen pen(brush, 5);
 
@@ -89,15 +96,15 @@ void TImeHull::generatePoints(int numberOfPoints)
 
     qsrand(now.msec());
 
-    //std::cout << xBound << " " << yBound << std::endl;
 
     for(int i = 0; i<numberOfPoints; i++){
-            /*+10 samo da ne bi bili u samom uglu kada se crtaju*/
+            /* +10 samo da ne bi bili u samom uglu kada se crtaju*/
          QPointF p(qrand()%(xBound) + 10, qrand()%(yBound));
         _points.push_back(p);
 
     }
 
+    /* sortiramo tacka */
     std::sort(_points.begin(), _points.end(),
               [] (const QPointF& v1, const QPointF& v2) { return v1.x() == v2.x() ? v1.y() <= v2.y() : v1.x() < v2.x(); });
 

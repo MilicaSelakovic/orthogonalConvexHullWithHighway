@@ -155,10 +155,13 @@
              <number>2</number>
             </property>
             <property name="minimum">
-             <double>3.100000000000000</double>
+             <double>2.000000000000000</double>
             </property>
             <property name="singleStep">
              <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>3.000000000000000</double>
             </property>
            </widget>
           </item>
@@ -196,6 +199,9 @@
             <property name="minimum">
              <number>10</number>
             </property>
+            <property name="maximum">
+             <number>40</number>
+            </property>
            </widget>
           </item>
          </layout>
@@ -217,20 +223,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>widget</zorder>
-   <zorder>horizontalSlider</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>doubleSpinBox</zorder>
-   <zorder>spinBox</zorder>
-   <zorder>label</zorder>
-   <zorder>label_2</zorder>
-   <zorder>horizontalSpacer</zorder>
-   <zorder>horizontalSpacer_2</zorder>
-   <zorder>label_3</zorder>
-   <zorder>verticalSpacer</zorder>
-   <zorder>verticalSpacer_2</zorder>
-   <zorder></zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

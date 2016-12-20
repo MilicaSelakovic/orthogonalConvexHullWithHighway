@@ -5,8 +5,9 @@
 Segment::Segment(QPointF point, float speed)
     :_point(point)
 {
-    // highway is x axis
-
+    /*
+        ubacimo tacku i odredimo njen odgovarajuci segment
+    */
     _begin = QPointF(point.x(), 0);
     _end = QPointF(point.x() + point.y()/speed, point.y());
 }
@@ -14,10 +15,13 @@ Segment::Segment(QPointF point, float speed)
 
 bool Segment::intersect(const QPointF &newPoint)
 {
-    // point is right of segment
+    /* tacka je desno od projekcije znaci nije iznad ovog segmenta */
+
     if(newPoint.x() > _end.x()){
         return false;
     }
+
+     /*presek vertikalne prave i segmenta postoji, nadjemo ga i modifikujemo pocetak segmenta */
 
     QPointF newBeginPoint = QPointF();
     Line().intersect(QLineF(newPoint.x(), newPoint.y(), newPoint.x(), 0), &newBeginPoint);
@@ -31,22 +35,19 @@ bool Segment::intersect(const QPointF &newPoint)
 
 bool Segment::isInside(const QPointF &newPoint) const
 {
+    // tacka je desno
     if (newPoint.x() > _end.x()){
         return false;
     }
 
-    // inace je unutar, jer da je levo bila obradjena u prethodnom segmentu
+    // inace je unutar granica projekcije, jer da je levo bila obradjena u prethodnom segmentu
+    // mozemo da utvrdimo da li je iznad ili ispod segmenta
 
     if( Line().intersect(QLineF(newPoint.x(), newPoint.y(), newPoint.x(), 0), nullptr)  == QLineF::BoundedIntersection){
         return true;
     }
     return false;
 }
-
-//bool Segment::hasIntersect(const Segment & line, QPointF *intersection) const
-//{
-//    return Line().intersect(line.Line(), intersection) == QLineF::BoundedIntersection;
-//}
 
 
 QLineF Segment::Line() const{
