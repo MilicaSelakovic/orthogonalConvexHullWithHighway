@@ -13,16 +13,23 @@ TImeHull::TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y)
     hullColor = QColor(200, 200, 255);
 }
 
+TImeHull::~TImeHull()
+{
+    _clusters.clear();
+}
 
 
-void TImeHull::HullL1(unsigned n)
+
+bool TImeHull::HullL1(unsigned n)
 {
     if(n > _points.size())
-        return;
+        return true;
 
-    for(int i = 0 ; i < n; i++){
+    for(unsigned i = 0 ; i < n; i++){
         NextStep(_points[i]);
     }
+
+    return false;
 
 }
 
@@ -46,11 +53,16 @@ void TImeHull::NextStep(QPointF &point){
 void TImeHull::paint(QPainter *painter, qreal upperBound) const
 {
 
-    for(QPointF p : _points){
-        painter->drawEllipse(p, 2,2);
-    }
     for(Cluster *c : _clusters){
         c->paint(painter, hullColor, upperBound);
+    }
+
+    QBrush brush(Qt::black);
+    QPen pen(brush, 5);
+
+    painter->setPen(pen);
+    for(QPointF p : _points){
+        painter->drawEllipse(p, 2,2);
     }
 }
 
@@ -63,8 +75,8 @@ void TImeHull::generatePoints(int numberOfPoints)
     //std::cout << xBound << " " << yBound << std::endl;
 
     for(int i = 0; i<numberOfPoints; i++){
-
-         QPointF p(qrand()%(xBound), qrand()%(yBound));
+            /*+10 samo da ne bi bili u samom uglu kada se crtaju*/
+         QPointF p(qrand()%(xBound) + 10, qrand()%(yBound));
         _points.push_back(p);
 
     }

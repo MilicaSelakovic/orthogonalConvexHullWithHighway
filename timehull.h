@@ -12,7 +12,8 @@ class TImeHull
 {
 public:
     TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y);
-    void HullL1(unsigned n);
+    ~TImeHull();
+    bool HullL1(unsigned n);
 
     void NextStep(QPointF &point);
 
@@ -20,6 +21,10 @@ public:
 
 
 private:
+
+    TImeHull(const TImeHull& hull);
+    TImeHull& operator+=(const TImeHull& hull);
+
     std::vector<QPointF> _points; // points in plane
     float _v; //HighWay speed
     std::vector<Cluster *> _clusters; // clusters

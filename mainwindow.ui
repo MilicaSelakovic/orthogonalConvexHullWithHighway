@@ -26,6 +26,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QSlider" name="horizontalSlider">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -33,6 +36,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_3">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -44,7 +50,24 @@
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/icons/pause.ico</normaloff>:/icons/pause.ico</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -236,10 +259,204 @@
    <extends>QWidget</extends>
    <header>drawarea.h</header>
    <container>1</container>
+   <slots>
+    <signal>moveSlider(int)</signal>
+    <signal>end()</signal>
+    <slot>start()</slot>
+    <slot>moveToStep(int)</slot>
+    <slot>stop()</slot>
+    <slot>pause()</slot>
+    <slot>setSpeed(double)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
   <include location="recources.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>generateHull()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>806</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>691</x>
+     <y>821</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>stop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>610</x>
+     <y>618</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>widget</receiver>
+   <slot>moveToStep(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>319</x>
+     <y>620</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>325</x>
+     <y>371</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>start()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>617</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>409</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>widget</receiver>
+   <slot>pause()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>577</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>581</x>
+     <y>401</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>widget</receiver>
+   <slot>setSpeed(double)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>919</x>
+     <y>726</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>599</x>
+     <y>340</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>moveSlider(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>moveSlider(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>113</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>128</x>
+     <y>502</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>playPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>627</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>728</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pausePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>570</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>570</x>
+     <y>738</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>stopPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>603</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>704</x>
+     <y>656</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>widget</sender>
+   <signal>end()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>endOfAlgorithm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>612</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>694</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>generateHull()</slot>
+  <slot>moveSlider(int)</slot>
+  <slot>playPressed()</slot>
+  <slot>pausePressed()</slot>
+  <slot>stopPressed()</slot>
+  <slot>endOfAlgorithm()</slot>
+ </slots>
 </ui>

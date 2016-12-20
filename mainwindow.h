@@ -15,6 +15,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void generateHull();
+    void moveSlider(int value);
+
+    void playPressed();
+    void pausePressed();
+    void stopPressed();
+    void endOfAlgorithm();
+
 private:
     Ui::MainWindow *ui;
 };

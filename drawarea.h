@@ -15,9 +15,24 @@ public:
     QSize minimumSizeHint() const;
     QSize sizeHint() const;
 
+    void generateHull(int number, float speed);
+    void destroyHull();
+
 signals:
 
+    void moveSlider(int i);
+    void end();
+    void theEnd();
+
 public slots:
+
+    void start();
+    void pause();
+    void stop();
+
+    void moveToStep(int i);
+
+    void setSpeed(double speed);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -28,6 +43,10 @@ private:
     unsigned step;
 
     QBasicTimer _timer;
+
+    bool _execute;
+
+    int linethickness;
 };
 
 #endif // DRAWAREA_H
