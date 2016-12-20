@@ -11,7 +11,7 @@
 class Cluster
 {
 public:
-    Cluster(Segment *segment);
+    Cluster(Segment *segment, QColor colorCluster);
 
     bool checkCluster(QPointF & newPoint, float speed);
     void paint(QPainter *painter, QColor hullColor, qreal upperBound) const;

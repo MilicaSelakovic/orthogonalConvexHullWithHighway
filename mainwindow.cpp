@@ -71,6 +71,18 @@ void MainWindow::endOfAlgorithm()
     ui->horizontalSlider->setEnabled(true);
     ui->pushButton->setEnabled(true);
     ui->pushButton_3->setEnabled(false);
-    ui->pushButton_4->setEnabled(true);
+    ui->pushButton_4->setEnabled(false);
+}
+
+void MainWindow::enablePlay(int value)
+{
+    int number = ui->spinBox->value();
+
+    if(number == value){
+        ui->pushButton_3->setEnabled(false);
+    } else {
+        ui->pushButton_3->setEnabled(true);
+    }
+
 }
 

@@ -11,6 +11,20 @@ TImeHull::TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y)
     iter = _points.begin();
 
     hullColor = QColor(200, 200, 255);
+
+    colors = std::queue<QColor>({
+                                    Qt::blue,
+                                    Qt::red,
+                                    Qt::yellow,
+                                    Qt::green,
+                                    Qt::cyan,
+                                    Qt::black,
+                                    Qt::darkCyan,
+                                    Qt::darkRed,
+                                    Qt::darkYellow,
+                                    Qt::magenta,
+                                    Qt::darkGray
+                                });
 }
 
 TImeHull::~TImeHull()
@@ -46,7 +60,10 @@ void TImeHull::NextStep(QPointF &point){
     }
 
     if(makeNew){
-        _clusters.push_back(new Cluster(current));
+        QColor col = colors.front();
+        colors.pop();
+        colors.push(col);
+        _clusters.push_back(new Cluster(current, col));
     }
 }
 

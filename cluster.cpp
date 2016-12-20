@@ -4,7 +4,8 @@
 #include <QBrush>
 #include <QPen>
 
-Cluster::Cluster(Segment *segment)
+Cluster::Cluster(Segment *segment, QColor colorCluster)
+    :colorCluster(colorCluster)
 {
     // at beginning in cluster we have just one segment
 
@@ -12,14 +13,14 @@ Cluster::Cluster(Segment *segment)
     _points = std::vector<QPointF> ();
     segments.push_back(segment);
     _points.push_back(segment->point());
-
+/*
     qsrand (QTime::currentTime().msec());
     int red = qrand() % 255;
     int green = qrand() % 255;
     int blue = qrand() % 255;
 
     colorCluster = QColor(red, green, blue);
-
+*/
 }
 
 bool Cluster::checkCluster(QPointF &newPoint, float speed)

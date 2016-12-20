@@ -6,6 +6,8 @@
 #include "cluster.h"
 #include <iterator>
 
+#include <queue>
+
 
 
 class TImeHull
@@ -36,6 +38,8 @@ private:
     QColor hullColor;
 
     unsigned xBound, yBound;
+
+    std::queue<QColor> colors;
 };
 
 #endif // TIMEHULL_H

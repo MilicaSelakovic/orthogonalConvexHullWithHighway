@@ -450,6 +450,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>enablePlay(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>238</x>
+     <y>681</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>generateHull()</slot>
@@ -458,5 +474,6 @@
   <slot>pausePressed()</slot>
   <slot>stopPressed()</slot>
   <slot>endOfAlgorithm()</slot>
+  <slot>enablePlay(int)</slot>
  </slots>
 </ui>

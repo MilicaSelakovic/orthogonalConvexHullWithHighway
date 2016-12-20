@@ -24,6 +24,8 @@ public slots:
     void stopPressed();
     void endOfAlgorithm();
 
+    void enablePlay(int value);
+
 private:
     Ui::MainWindow *ui;
 };

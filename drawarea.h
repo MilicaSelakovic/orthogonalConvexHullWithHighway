@@ -39,12 +39,12 @@ protected:
     void timerEvent(QTimerEvent *);
 
 private:
-    TImeHull *hull;
     unsigned step;
 
     QBasicTimer _timer;
 
     bool _execute;
+    TImeHull *hull;
 
     int linethickness;
 };
