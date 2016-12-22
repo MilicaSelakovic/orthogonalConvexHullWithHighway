@@ -93,7 +93,7 @@ void DrawArea::loadFromFile()
     if(filePath.length()){
        bool succ =  hull->openFromFile(filePath);
        if(!succ){
-            QMessageBox::information(this, tr("Error"), tr("Error while reading file"));
+            QMessageBox::information(this, tr("Error"), tr("Error while reading file.\nEach line should contain space separated coordinates (example of a line: \"42 6\")"));
        }
     }
 

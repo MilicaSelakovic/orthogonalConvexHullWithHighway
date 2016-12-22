@@ -28,7 +28,7 @@ void Dialog::setSerbianContnet()
     definicija.append("Definicija: Vremenski konveksni omotač skupa tačaka je najmanji skup koji sadrži sve tačke i najbrže puteve medju njima");
 
     definicija.append("\n");
-    definicija.append("Autoput je prava u ravni za koju važi da je vremenska razdaljina od dve tačke na njoj kraća nego od druge dve tačke istog rastojanja van autoputa. Ili drugačije rečeno, kretanje van autoputa je brzine 1 dok je na autoputu brzina strogo veća od 1.");
+    definicija.append("Autoput je prava u ravni za koju važi da je vremenska razdaljina od dve tačke na njoj kraća nego od druge dve tačke istog rastojanja van autoputa. Ili drugačije rečeno, ako je kretanje van autoputa brzine 1 onda je na autoputu brzine strogo veće od 1.");
 
     definicija.append("\n");
     definicija.append("Definicija: Vremenski konveksni omotač skupa tačaka sa autoputem, je najmanji skup koji sadrži sve tačke, autoput i najbrže puteve između tačaka.");
@@ -36,7 +36,7 @@ void Dialog::setSerbianContnet()
     definicija.append("\n");
 
 
-    definicija.append("Tačke se razvrstavaju u klastere, za koje važi da najbrži put između dve tačke u klasteru, a najbrži put između tačaka van klastera koristi autoput.\n");
+    definicija.append("Tačke se razvrstavaju u klastere (particije, podskupove), za koje važi da najbrži put između dve tačke u klasteru, a najbrži put između tačaka van klastera koristi autoput.\n");
     ui->textEdit->setText(definicija);
     ui->textEdit->setReadOnly(true);
 
@@ -53,7 +53,7 @@ void Dialog::setSerbianContnet()
     opisAloritma.append("U slučaju L1 norme, granica klastera je izlomljena linija, i dovoljno je proveriti da li je tačka iznad ili ispod granice.");
     opisAloritma.append("\n");
 
-    opisAloritma.append("Ako je tačka iznad granice, znači da pripada klasteru, potrebno ju je dodati i promeniti granicu klastera (kao na slici iznad)");
+    opisAloritma.append("Ako je tačka iznad granice, znači da pripada klasteru, potrebno ju je dodati i promeniti granicu klastera (kao na slici iznad).");
 
     opisAloritma.append("Ako ne pripada ni jednom od klastera onda se pravi novi klaster koji sadrži samo datu tačku.\n");
 

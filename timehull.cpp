@@ -176,5 +176,6 @@ void TImeHull::clean()
 
 bool operator <(const QPointF &v1, const QPointF &v2)
 {
-     return v1.x() == v2.x() ? v1.y() <= v2.y() : v1.x() < v2.x();
+     return v1.x() == v2.x() ? v1.y() < v2.y() : v1.x() < v2.x();
 }
+
