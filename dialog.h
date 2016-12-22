@@ -15,6 +15,9 @@ public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
 
+    void setEnglishContent();
+    void setSerbianContnet();
+
 private:
     Ui::Dialog *ui;
 };

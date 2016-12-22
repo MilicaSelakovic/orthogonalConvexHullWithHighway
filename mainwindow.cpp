@@ -125,16 +125,7 @@ void MainWindow::on_actionHelp_RS_triggered()
 
     dialog->show();
 
-    //connect(dialog, SIGNAL(close()), dialog, SLOT(deleteLater()));
-    //dialog->deleteLater();
-}
-
-void MainWindow::on_actionHelp_EN_triggered()
-{
-
-    Dialog * dialog = new Dialog(this);
-
-    dialog->show();
+    dialog->setSerbianContnet();
 
 }
 
