@@ -4,14 +4,19 @@
 #include <QPen>
 #include <QBrush>
 
+#include <QFileDialog>
+
+#include <iostream>
+#include <QMessageBox>
+
 DrawArea::DrawArea(QWidget *parent)
     : QWidget(parent) ,
       step(0),
       _execute(false),
-      hull(0),
       linethickness(6)
 {
 
+    hull = new TImeHull(3);
     setBackgroundRole(QPalette::Base);
     setAutoFillBackground(true);
 
@@ -29,9 +34,20 @@ QSize DrawArea::sizeHint() const
     return QSize(400,200);
 }
 
-void DrawArea::generateHull(int number, float speed)
+void DrawArea::generateHull(int number)
 {
-    hull = new TImeHull(number, speed, width() - 20, height()/2);
+    hull->generateRandom(number, width() - 20, height()/2);
+}
+
+int DrawArea::numberOfPoints() const
+{
+    return hull->numberOfPoints();
+}
+
+void DrawArea::insertPoint(float x, float y)
+{
+    QPointF point(x, y);
+    hull->addPoint(point);
 }
 
 void DrawArea::start()
@@ -53,8 +69,7 @@ void DrawArea::stop()
 
     emit moveSlider(step);
 
-    delete hull;
-    hull = nullptr;
+    hull ->clean();
     update();
 }
 
@@ -68,6 +83,20 @@ void DrawArea::moveToStep(int i)
 void DrawArea::setSpeed(double speed)
 {
     linethickness = speed * 2;
+}
+
+void DrawArea::loadFromFile()
+{
+
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text files (*.txt)"));
+
+    if(filePath.length()){
+       bool succ =  hull->openFromFile(filePath);
+       if(!succ){
+            QMessageBox::information(this, tr("Error"), tr("Error while reading file"));
+       }
+    }
+
 }
 
 void DrawArea::paintEvent(QPaintEvent *)
@@ -108,4 +137,5 @@ void DrawArea::timerEvent(QTimerEvent *)
     emit moveSlider(step);
     update();
 }
+
 

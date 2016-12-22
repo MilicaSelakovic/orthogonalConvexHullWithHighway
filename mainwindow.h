@@ -30,6 +30,17 @@ public slots:
 
     void enablePlay(int value);
 
+    void startAlgorithm();
+
+    void insertPoint();
+
+private slots:
+
+    void on_actionClose_triggered();
+
+    void on_actionHelp_RS_triggered();
+    void on_actionHelp_EN_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

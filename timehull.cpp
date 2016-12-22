@@ -1,15 +1,16 @@
 #include "timehull.h"
 
 #include <QTime>
+#include <QFile>
+#include <QTextStream>
 
 #include <iostream>
 
-TImeHull::TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y)
-    : _v(speed), xBound(x), yBound(y)
+TImeHull::TImeHull(float speed)
+    : _v(speed)
 {
-    generatePoints(numberOfPoints);
-
     hullColor = QColor(200, 200, 255);
+    _points = std::set<QPointF>();
 
 
 }
@@ -23,6 +24,8 @@ TImeHull::~TImeHull()
 
 bool TImeHull::HullL1(unsigned n)
 {
+    bool retVal = false;
+    _clusters.clear();
     colors = std::queue<QColor>({
                                     Qt::blue,
                                     Qt::red,
@@ -36,14 +39,20 @@ bool TImeHull::HullL1(unsigned n)
                                     Qt::magenta,
                                     Qt::darkGray
                                 });
-    if(n > _points.size())
-        return true;
+    if(n > _points.size()){
+        retVal = true;
+        n = _points.size();
+    }
+    unsigned i = 0;
+    for(QPointF p : _points){
+        if (i == n)
+            break;
+        NextStep(p);
+        i++;
 
-    for(unsigned i = 0 ; i < n; i++){
-        NextStep(_points[i]);
     }
 
-    return false;
+    return retVal;
 
 }
 
@@ -72,6 +81,66 @@ void TImeHull::NextStep(QPointF &point){
     }
 }
 
+void TImeHull::generateRandom(unsigned numberOfPoints, int xBound, int yBound)
+{
+    _points.clear();
+    QTime now = QTime::currentTime();
+
+    qsrand(now.msec());
+
+
+    for(unsigned i = 0; i<numberOfPoints; i++){
+            /* +10 samo da ne bi bili u samom uglu kada se crtaju*/
+         QPointF p(qrand()%(xBound) + 10, qrand()%(yBound));
+         _points.insert(p);
+
+
+    }
+
+}
+
+bool TImeHull::openFromFile(QString &filePath)
+{
+    std::set<QPointF> tmp;
+
+    QFile inputFile(filePath);
+    if (inputFile.open(QIODevice::ReadOnly))
+    {
+       QTextStream in(&inputFile);
+       while (!in.atEnd())
+       {
+          QString line = in.readLine();
+          QStringList list = line.split(" ");
+          if( list.size() != 2)
+              return false;
+
+          bool ind;
+          float x = list.at(0).toFloat(&ind);
+          if(!ind)
+              return false;
+
+          float y = list.at(1).toFloat(&ind);
+          if(!ind)
+              return false;
+
+          tmp.insert(QPointF(x, y));
+       }
+       inputFile.close();
+    } else{
+        return false;
+    }
+
+
+    _points.swap(tmp);
+    return true;
+
+}
+
+void TImeHull::addPoint(QPointF &point)
+{
+    _points.insert(point);
+}
+
 void TImeHull::paint(QPainter *painter, qreal upperBound) const
 {
 
@@ -90,23 +159,22 @@ void TImeHull::paint(QPainter *painter, qreal upperBound) const
     }
 }
 
-void TImeHull::generatePoints(int numberOfPoints)
+int TImeHull::numberOfPoints() const
 {
-    QTime now = QTime::currentTime();
+    return _points.size();
+}
 
-    qsrand(now.msec());
+void TImeHull::clean()
+{
+    _points.clear();
+    _clusters.clear();
+}
 
+/**
+ * definisemo operator manje da bi mogli da stavimo tacke u skup (drvo)
+ */
 
-    for(int i = 0; i<numberOfPoints; i++){
-            /* +10 samo da ne bi bili u samom uglu kada se crtaju*/
-         QPointF p(qrand()%(xBound) + 10, qrand()%(yBound));
-        _points.push_back(p);
-
-    }
-
-    /* sortiramo tacka */
-    std::sort(_points.begin(), _points.end(),
-              [] (const QPointF& v1, const QPointF& v2) { return v1.x() == v2.x() ? v1.y() <= v2.y() : v1.x() < v2.x(); });
-
-
+bool operator <(const QPointF &v1, const QPointF &v2)
+{
+     return v1.x() == v2.x() ? v1.y() <= v2.y() : v1.x() < v2.x();
 }

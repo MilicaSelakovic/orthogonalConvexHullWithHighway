@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "dialog.h"
+
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -15,19 +19,37 @@ MainWindow::~MainWindow()
 
 void MainWindow::generateHull()
 {
-    float speed = ui->doubleSpinBox->value();
     int number = ui->spinBox->value();
+
+    ui->widget->generateHull(number);
+}
+
+
+void MainWindow::startAlgorithm(){
+
+    int number = ui->widget->numberOfPoints();
 
     ui->doubleSpinBox->setEnabled(false);
     ui->spinBox->setEnabled(false);
     ui->pushButton_2->setEnabled(false);
+    ui->pushButton_5->setEnabled(false);
+    ui->pushButton_6->setEnabled(false);
+    ui->pushButton_7->setEnabled(false);
+
+    ui->spinBox_2->setEnabled(false);
+    ui->spinBox_3->setEnabled(false);
 
     ui->horizontalSlider->setMaximum(number);
     ui->pushButton->setEnabled(true);
     ui->horizontalSlider->setEnabled(true);
     ui->pushButton_3->setEnabled(true);
 
-    ui->widget->generateHull(number, speed);
+
+}
+
+void MainWindow::insertPoint()
+{
+      ui->widget->insertPoint(ui->spinBox_2->value(), ui->spinBox_3->value());
 }
 
 void MainWindow::moveSlider(int value)
@@ -63,6 +85,12 @@ void MainWindow::stopPressed()
     ui->doubleSpinBox->setEnabled(true);
     ui->spinBox->setEnabled(true);
     ui->pushButton_2->setEnabled(true);
+    ui->pushButton_5->setEnabled(true);
+    ui->pushButton_6->setEnabled(true);
+    ui->pushButton_7->setEnabled(true);
+
+    ui->spinBox_2->setEnabled(true);
+    ui->spinBox_3->setEnabled(true);
 
 }
 
@@ -83,6 +111,30 @@ void MainWindow::enablePlay(int value)
     } else {
         ui->pushButton_3->setEnabled(true);
     }
+
+}
+
+void MainWindow::on_actionClose_triggered()
+{
+    close();
+}
+
+void MainWindow::on_actionHelp_RS_triggered()
+{
+    Dialog * dialog = new Dialog(this);
+
+    dialog->show();
+
+    //connect(dialog, SIGNAL(close()), dialog, SLOT(deleteLater()));
+    //dialog->deleteLater();
+}
+
+void MainWindow::on_actionHelp_EN_triggered()
+{
+
+    Dialog * dialog = new Dialog(this);
+
+    dialog->show();
 
 }
 

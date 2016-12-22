@@ -2,7 +2,7 @@
 #define TIMEHULL_H
 
 
-#include <vector>
+#include <set>
 #include "cluster.h"
 #include <iterator>
 
@@ -16,7 +16,7 @@
 class TImeHull
 {
 public:
-    TImeHull(int numberOfPoints, float speed, unsigned x, unsigned y);
+    TImeHull(float speed);
     ~TImeHull();
 
     /**
@@ -30,11 +30,29 @@ public:
     void NextStep(QPointF &point);
 
     /**
+     * generise niz od numberOf points radnom tacaka
+     */
+    void generateRandom(unsigned numberOfPoints, int xBound, int yBound);
+
+    /**
+     * cita tacke iz fajla
+     */
+    bool openFromFile(QString &filePath);
+
+    /**
+     * dodaje tacku
+     */
+    void addPoint(QPointF &point);
+
+    /**
      * iscrtavanje
      */
     void paint(QPainter *painter, qreal upperBound) const;
 
 
+    int numberOfPoints() const;
+
+    void clean();
 private:
 
     /**
@@ -44,19 +62,12 @@ private:
     TImeHull(const TImeHull& hull);
     TImeHull& operator+=(const TImeHull& hull);
 
-    std::vector<QPointF> _points; // pocetni skup tacaka, pri generisanju se i sortira
+    std::set<QPointF> _points; // pocetni skup tacaka, pri generisanju se i sortira
     float _v; // brzina na autoputu, da bi se uopste radio algortam mora da bude veca od 1
     std::vector<Cluster *> _clusters; // vektor svih klastera
 
-    /**
-     * metod u kome se generise numberOfPoints random tacaka i sortira
-     */
-
-    void generatePoints(int numberOfPoints);
-
     QColor hullColor; // boja konveksnog omotaca
 
-    unsigned xBound, yBound; // granice widgeta u kome se crta omotac
 
     std::queue<QColor> colors;
 };

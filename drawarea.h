@@ -24,7 +24,11 @@ public:
     /*
      * metod kojim se generise pocetni skup tacaka
      */
-    void generateHull(int number, float speed);
+    void generateHull(int number);
+
+    int numberOfPoints() const;
+
+    void insertPoint(float x, float y);
 
 signals:
     /*
@@ -53,6 +57,9 @@ public slots:
      * ta linija je fiksirano x osa
      */
     void setSpeed(double speed);
+
+    void loadFromFile();
+
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
