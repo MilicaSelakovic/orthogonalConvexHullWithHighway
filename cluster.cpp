@@ -97,32 +97,33 @@ bool Cluster::checkCluster(QPointF &newPoint, float speed)
 
 }
 
-void Cluster::paint(QPainter *painter, QColor hullColor, qreal upperBound) const
+void Cluster::paint(QPainter *painter, QColor hullColor, qreal upperBound, bool end) const
 {
     bool ind = true;
 
-    QBrush brush(colorCluster);
-    QPen pen(brush, 2);
-    painter->setPen(pen);
+    if(!end){
 
-    Segment * pervious;
-    for(Segment *s : segments){
-        if(ind){
-            painter->drawLine(QLineF(s->end().x(), upperBound, s->end().x(), s->end().y()));
+        QBrush brush(colorCluster);
+        QPen pen(brush, 2);
+        painter->setPen(pen);
+
+        Segment * pervious;
+        for(Segment *s : segments){
+            if(ind){
+                painter->drawLine(QLineF(s->end().x(), upperBound, s->end().x(), s->end().y()));
+                pervious = s;
+                ind = false;
+            } else {
+                painter->drawLine(QLineF(pervious->begin(), s->end()));
+            }
+
+            painter->drawLine(s->Line());
+
             pervious = s;
-            ind = false;
-        } else {
-            painter->drawLine(QLineF(pervious->begin(), s->end()));
+
         }
 
-        painter->drawLine(s->Line());
-
-        pervious = s;
-
     }
-
-
-
     QBrush brush1(hullColor, Qt::SolidPattern);
     QPen pen1(Qt::darkBlue, 1);
     painter->setBrush(brush1);

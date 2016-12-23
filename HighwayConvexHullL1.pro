@@ -27,3 +27,6 @@ FORMS    += mainwindow.ui \
 
 RESOURCES += \
     recources.qrc
+
+DISTFILES += \
+    pointInputExample.txt

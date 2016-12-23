@@ -31,7 +31,7 @@ public:
         crta se deo konveksnog omotaca i granica klastera,
         boja omotaca je ista za sve klastere, dok je boja granice razlicita
     */
-    void paint(QPainter *painter, QColor hullColor, qreal upperBound) const;
+    void paint(QPainter *painter, QColor hullColor, qreal upperBound, bool end) const;
 
 private:
 

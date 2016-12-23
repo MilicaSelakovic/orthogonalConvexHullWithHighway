@@ -82,6 +82,7 @@ void DrawArea::moveToStep(int i)
 
 void DrawArea::setSpeed(double speed)
 {
+    hull->changeSpeed(speed);
     linethickness = speed * 2;
 }
 
@@ -106,6 +107,9 @@ void DrawArea::paintEvent(QPaintEvent *)
     QBrush brush(Qt::black);
     QPen pen(brush, linethickness);
 
+    painter.drawText(0,height() - 40, 60, 20,0, tr("Highway"));
+
+
     /*pretvorimo koordinatni sistem u onaj koji smo navikli za crtanje*/
     painter.translate(0, height() - 20);
 
@@ -116,7 +120,6 @@ void DrawArea::paintEvent(QPaintEvent *)
     painter.setPen(pen);
     painter.drawLine(QLineF(0, 0, width(), 0));
 
-
     if(hull != nullptr){
 
         bool isEnd = hull->HullL1(step);
@@ -124,7 +127,7 @@ void DrawArea::paintEvent(QPaintEvent *)
             emit end();
         }
 
-        hull->paint(&painter, height() - 10);
+        hull->paint(&painter, height() - 10, isEnd);
     }
 }
 

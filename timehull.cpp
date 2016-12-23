@@ -141,12 +141,12 @@ void TImeHull::addPoint(QPointF &point)
     _points.insert(point);
 }
 
-void TImeHull::paint(QPainter *painter, qreal upperBound) const
+void TImeHull::paint(QPainter *painter, qreal upperBound, bool end) const
 {
 
     /*iscrtamo klastere */
     for(Cluster *c : _clusters){
-        c->paint(painter, hullColor, upperBound);
+        c->paint(painter, hullColor, upperBound, end);
     }
 
     /*iscrtamo pocetni skup tacaka */
@@ -166,8 +166,16 @@ int TImeHull::numberOfPoints() const
 
 void TImeHull::clean()
 {
-    _points.clear();
+   /**
+    *  ociste se samo klasteri da bi mogao algoritam da se pokrene sa istim skupom tacaka, a razlicitim brzinama
+    */
+
     _clusters.clear();
+}
+
+void TImeHull::changeSpeed(float v)
+{
+    _v = v;
 }
 
 /**

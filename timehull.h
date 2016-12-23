@@ -47,12 +47,14 @@ public:
     /**
      * iscrtavanje
      */
-    void paint(QPainter *painter, qreal upperBound) const;
+    void paint(QPainter *painter, qreal upperBound, bool end) const;
 
 
     int numberOfPoints() const;
 
     void clean();
+
+    void changeSpeed(float v);
 private:
 
     /**

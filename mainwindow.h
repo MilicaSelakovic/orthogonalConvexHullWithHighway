@@ -30,7 +30,6 @@ public slots:
 
     void enablePlay(int value);
 
-    void startAlgorithm();
 
     void insertPoint();
 
