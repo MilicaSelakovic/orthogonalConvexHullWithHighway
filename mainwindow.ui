@@ -163,7 +163,7 @@
              <number>60</number>
             </property>
             <property name="value">
-             <number>30</number>
+             <number>10</number>
             </property>
            </widget>
           </item>
@@ -217,7 +217,7 @@
            <double>0.100000000000000</double>
           </property>
           <property name="value">
-           <double>3.000000000000000</double>
+           <double>4.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -233,7 +233,9 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="DrawArea" name="widget" native="true"/>
+         <widget class="DrawArea" name="widget" native="true">
+          <zorder></zorder>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">

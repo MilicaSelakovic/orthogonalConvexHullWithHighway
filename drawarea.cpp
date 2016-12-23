@@ -83,7 +83,6 @@ void DrawArea::moveToStep(int i)
 void DrawArea::setSpeed(double speed)
 {
     hull->changeSpeed(speed);
-    linethickness = speed * 2;
 }
 
 void DrawArea::loadFromFile()

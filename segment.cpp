@@ -9,7 +9,8 @@ Segment::Segment(QPointF point, float speed)
         ubacimo tacku i odredimo njen odgovarajuci segment
     */
     _begin = QPointF(point.x(), 0);
-    _end = QPointF(point.x() + point.y()/speed, point.y());
+    float k = (1 - 1/speed)/2; /* koeficijent dela segmenta */
+    _end = QPointF(point.x() + point.y()/k, point.y());
 }
 
 
