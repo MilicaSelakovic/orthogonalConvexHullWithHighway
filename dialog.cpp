@@ -35,8 +35,9 @@ void Dialog::setSerbianContnet()
 
     definicija.append("\n");
 
+    definicija.append("Detaljne informacije možete pogledati na http://www.sciencedirect.com/science/article/pii/S0925772109000753\n");
 
-    definicija.append("Tačke se razvrstavaju u klastere (particije, podskupove), za koje važi da najbrži put između dve tačke u klasteru, a najbrži put između tačaka van klastera koristi autoput.\n");
+    definicija.append("Tačke se razvrstavaju u klastere (particije, podskupove), za koje važi da je najbrži put između dve tačke u klasteru, a najbrži put između dve tačake u različitim klasterima je onaj koji koristi autoput.\n");
     ui->textEdit->setText(definicija);
     ui->textEdit->setReadOnly(true);
 
